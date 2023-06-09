@@ -34,6 +34,7 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import * as CHAINS from '@constants/chains/master'
 import { SynapseProvider } from '@/utils/providers/SynapseProvider'
 import CustomToaster from '@/components/toast'
+import { AnalyticsProvider } from '@/contexts/AnalyticsProvider'
 
 const rawChains = [
   mainnet,
@@ -94,8 +95,10 @@ const App = ({ Component, pageProps }: AppProps) => {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <SynapseProvider chains={chains}>
-          <Component {...pageProps} />
-          <CustomToaster />
+          <AnalyticsProvider writeKey={'KEY_GOES_HERE'}>
+            <Component {...pageProps} />
+            <CustomToaster />
+          </AnalyticsProvider>
         </SynapseProvider>
       </RainbowKitProvider>
     </WagmiConfig>
